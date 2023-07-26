@@ -1,5 +1,5 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
-import { Button } from '../Button/Button';
+// import { Button } from '../Button/Button';
 
 export const ImageGallery = ({ photos }) => {
   return (

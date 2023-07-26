@@ -1,4 +1,4 @@
-import { Modal } from '../Modal/Modal';
+// import { Modal } from '../Modal/Modal';
 
 export const ImageGalleryItem = ({ id, smallPicture, bigPicture }) => {
   return (
