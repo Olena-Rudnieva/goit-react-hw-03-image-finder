@@ -7,6 +7,7 @@ import { getAPI } from '../services/api-service';
 export class App extends Component {
   state = {
     query: '',
+    photos: null,
     page: '',
     loading: false,
   };
@@ -19,7 +20,7 @@ export class App extends Component {
     if (prevState.query !== this.state.query) {
       getAPI(this.state.query)
         .then(response => response.json())
-        .then(photos => console.log(photos));
+        .then(photos => this.setState({ photos: photos.hits }));
     }
   }
 
@@ -28,9 +29,7 @@ export class App extends Component {
       <div>
         <Searchbar onSubmit={this.handleSearch} />
         {this.state.loading && <h1>Loading...</h1>}
-        <div>
-          <ImageGallery />
-        </div>
+        {this.state.photos && <ImageGallery photos={this.state.photos} />}
         <ToastContainer />
       </div>
     );

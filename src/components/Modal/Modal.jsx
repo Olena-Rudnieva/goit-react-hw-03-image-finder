@@ -1,3 +1,3 @@
-export const Modal = () => {
+export const Modal = ({ id, bigPicture }) => {
   return;
 };

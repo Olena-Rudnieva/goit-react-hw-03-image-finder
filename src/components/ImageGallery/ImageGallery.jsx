@@ -1,11 +1,19 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Button } from '../Button/Button';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ photos }) => {
   return (
     <ul className="gallery">
-      <ImageGalleryItem />
-      <Button />
+      {photos.map(photo => {
+        return (
+          <ImageGalleryItem
+            id={photo.id}
+            smallPicture={photo.webformatURL}
+            bigPicture={photo.largeImageURL}
+          />
+        );
+      })}
+      {/* <Button /> */}
     </ul>
   );
 };
