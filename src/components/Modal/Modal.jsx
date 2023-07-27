@@ -19,14 +19,11 @@ export class Modal extends Component {
   };
 
   render() {
+    const { closeModal, bigPicture } = this.props;
     return (
-      <Overlay onClick={this.props.closeModal}>
+      <Overlay onClick={closeModal}>
         <ModalPicture>
-          <img
-            src={this.props.bigPicture}
-            alt=""
-            onClick={this.props.closeModal}
-          />
+          <img src={bigPicture} alt="" onClick={closeModal} />
         </ModalPicture>
       </Overlay>
     );

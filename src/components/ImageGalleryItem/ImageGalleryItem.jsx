@@ -16,22 +16,18 @@ export class ImageGalleryItem extends Component {
   };
 
   render() {
+    const { smallPicture, bigPicture } = this.props;
     return (
       <GalleryItem>
         <GalleryItemPicture
-          src={this.props.smallPicture}
+          src={smallPicture}
           alt=""
           onClick={this.openPicture}
         />
         {this.state.isOpen && (
-          <Modal
-            bigPicture={this.props.bigPicture}
-            closeModal={this.closePicture}
-          />
+          <Modal bigPicture={bigPicture} closeModal={this.closePicture} />
         )}
       </GalleryItem>
     );
   }
 }
-
-// ({ smallPicture, bigPicture })
