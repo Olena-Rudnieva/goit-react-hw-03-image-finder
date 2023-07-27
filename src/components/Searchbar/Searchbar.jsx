@@ -6,7 +6,6 @@ import {
   SeachbarHead,
   SearchForm,
   SearchFormButton,
-  ButtonLabel,
   SearchFormInput,
 } from './Searchbar.styled';
 
@@ -33,8 +32,7 @@ export class Searchbar extends Component {
       <SeachbarHead>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchFormButton type="submit">
-            <ImSearch style={{ marginRight: 8 }} />
-            <ButtonLabel>Search</ButtonLabel>
+            <ImSearch style={{ width: 20, height: 20 }} />
           </SearchFormButton>
 
           <SearchFormInput

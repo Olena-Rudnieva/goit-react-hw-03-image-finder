@@ -10,31 +10,36 @@ export class App extends Component {
   state = {
     query: '',
     photos: [],
-    page: '',
+    perPage: 12,
+    page: 1,
     loading: false,
     error: null,
   };
 
-  handleSearch = query => {
-    this.setState({ query });
-  };
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.setState({ loading: true, photos: [] });
-      getAPI(this.state.query)
+    if (
+      prevState.query !== this.state.query ||
+      this.state.page !== prevState.page
+    ) {
+      // this.setState({ loading: true });
+      if (prevState.query !== this.state.query) {
+        this.setState({ loading: true, page: 1, photos: [] });
+      }
+
+      getAPI(this.state.query, this.state.perPage, this.state.page)
         .then(response => {
           if (response.ok) {
             return response.json();
           }
           return Promise.reject(new Error('Please try again!'));
         })
-        .then(data =>
-          // this.setState(prevState => ({
-          //   photos: [...prevState.photos, data.hits],
-          // }))
-          this.setState({ photos: data.hits })
-        )
+        .then(data => {
+          this.setState(prevState => ({
+            photos: [...prevState.photos, ...data.hits],
+          }));
+          console.log(prevState.photos);
+          console.log(this.state.photos);
+        })
         .catch(error => {
           this.setState({ error });
           console.log(error.message);
@@ -43,6 +48,14 @@ export class App extends Component {
     }
   }
 
+  handleSearch = query => {
+    this.setState({ query });
+  };
+
+  handleBtnLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
   render() {
     return (
       <AppStyle>
@@ -50,7 +63,10 @@ export class App extends Component {
         {this.state.error && <h1>Please try again!</h1>}
         {this.state.loading && <Loading />}
         {this.state.photos.length > 0 && (
-          <ImageGallery photos={this.state.photos} />
+          <ImageGallery
+            photos={this.state.photos}
+            onLoadMore={this.handleBtnLoadMore}
+          />
         )}
         {this.state.photos.length === 0 &&
           this.state.query !== '' &&
