@@ -1,3 +1,5 @@
+import { LoadingButton } from './Button.styled';
+
 export const Button = () => {
-  return;
+  return <LoadingButton>Load more</LoadingButton>;
 };

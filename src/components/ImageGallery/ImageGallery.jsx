@@ -1,6 +1,6 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styled';
-// import { Button } from '../Button/Button';
+import { Button } from '../Button/Button';
 
 export const ImageGallery = ({ photos }) => {
   return (
@@ -14,7 +14,7 @@ export const ImageGallery = ({ photos }) => {
           />
         );
       })}
-      {/* <Button /> */}
+      <Button />
     </Gallery>
   );
 };
