@@ -32,7 +32,8 @@ export class App extends Component {
           return Promise.reject(new Error('Please try again!'));
         })
         .then(data => {
-          if (!data.hits.length > 0) {
+          console.log(data.hits.length);
+          if (data.hits.length === 0) {
             toast.error(
               'Sorry, there are no images matching your search query.'
             );
