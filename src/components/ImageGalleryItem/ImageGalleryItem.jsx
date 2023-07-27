@@ -1,10 +1,10 @@
 // import { Modal } from '../Modal/Modal';
 
-export const ImageGalleryItem = ({ id, smallPicture, bigPicture }) => {
+export const ImageGalleryItem = ({ smallPicture, bigPicture }) => {
   return (
-    <li className="gallery-item" key={id}>
+    <li className="gallery-item">
       <img src={smallPicture} alt="" />
-      {/* <Modal id={id} bigPicture={bigPicture} /> */}
+      {/* <Modal id={key} bigPicture={bigPicture} /> */}
     </li>
   );
 };

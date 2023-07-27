@@ -3,11 +3,14 @@ import { ToastContainer } from 'react-toastify';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { getAPI } from '../services/api-service';
+import { Loading } from './Loader/Loader';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class App extends Component {
   state = {
     query: '',
-    photos: null,
+    photos: [],
     page: '',
     loading: false,
   };
@@ -18,9 +21,23 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
+      this.setState({ loading: true });
+      this.setState({ photos: [] });
       getAPI(this.state.query)
-        .then(response => response.json())
-        .then(photos => this.setState({ photos: photos.hits }));
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+          return response.json();
+        })
+        .then(data =>
+          // this.setState(prevState => ({
+          //   photos: [...prevState.photos, data.hits],
+          // }))
+          this.setState({ photos: data.hits })
+        )
+        .catch(error => console.log(error))
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
@@ -28,8 +45,18 @@ export class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.handleSearch} />
-        {this.state.loading && <h1>Loading...</h1>}
-        {this.state.photos && <ImageGallery photos={this.state.photos} />}
+        {this.state.loading && <Loading />}
+        {/* {this.state.photos ? (
+          <ImageGallery photos={this.state.photos} />
+        ) : (
+          toast(
+            'Sorry, there are no images matching your search query. Please try again.'
+          )
+        )} */}
+        {this.state.photos.length > 0 && (
+          <ImageGallery photos={this.state.photos} />
+        )}
+
         <ToastContainer />
       </div>
     );

@@ -7,7 +7,7 @@ export const ImageGallery = ({ photos }) => {
       {photos.map(photo => {
         return (
           <ImageGalleryItem
-            id={photo.id}
+            key={photo.id}
             smallPicture={photo.webformatURL}
             bigPicture={photo.largeImageURL}
           />
